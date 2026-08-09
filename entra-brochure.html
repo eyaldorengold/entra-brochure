@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Entra — חוברת לאדריכלים</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@400;500;700&family=Assistant:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  /* ============================================================
+     ENTRA — Hebrew RTL brochure for architects. Two A4 sides.
+     Print: Ctrl/Cmd+P → Save as PDF → A4, margins "None",
+     enable "Background graphics".
+     ============================================================ */
+  :root{
+    --paper:#F1F0EB; --surface:#FAFAF8;
+    --ink:#15332D; --ink-2:#0E2520;
+    --muted:#4A554E; --muted-2:#77807A;
+    --line:#D3CFC5; --line-soft:#E4E2D9;
+    --brass:#A9843F; --brass-soft:#C6A667; --white:#fff;
+    --serif:'Frank Ruhl Libre',serif;
+    --sans:'Assistant',system-ui,sans-serif;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:var(--sans);color:var(--ink);background:#8f8f88;line-height:1.62;-webkit-font-smoothing:antialiased}
+  .serif{font-family:var(--serif)}
+
+  /* ---- page frame ---- */
+  .page{
+    width:210mm;min-height:297mm;background:var(--paper);
+    margin:14px auto;position:relative;overflow:hidden;
+    display:flex;flex-direction:column;
+  }
+  .pad{padding:16mm 15mm}
+
+  /* ---- shared type ---- */
+  .eyebrow{font-size:9.5pt;font-weight:600;letter-spacing:.28em;color:var(--brass);text-transform:none}
+  h1,h2,h3,h4{font-family:var(--serif);font-weight:500;line-height:1.15;letter-spacing:0}
+  .lead{color:var(--muted);font-weight:400}
+
+  /* ---- hero (side A top) ---- */
+  .hero{position:relative;background:linear-gradient(200deg,var(--ink) 0%,var(--ink-2) 100%);color:var(--white);overflow:hidden}
+  .hero__img{position:absolute;inset:0;background-size:cover;background-position:center;opacity:.5}
+  .hero::after{content:"";position:absolute;inset:0;background:linear-gradient(200deg,rgba(14,37,32,.55),rgba(14,37,32,.82))}
+  .hero .inner{position:relative;z-index:2;padding:20mm 15mm 16mm}
+  .brandrow{display:flex;align-items:center;gap:9px;margin-bottom:26mm}
+  .brandrow svg{width:30px;height:30px}
+  .brandrow .wm{font-family:var(--serif);font-weight:500;font-size:17pt;letter-spacing:.18em}
+  .hero .eyebrow{color:var(--brass-soft)}
+  .hero h1{font-size:33pt;color:var(--white);margin:9px 0 10px;font-weight:700;line-height:1.12}
+  .hero .subttl{font-size:14pt;color:rgba(255,255,255,.82);font-weight:400;font-family:var(--serif)}
+  .hero__meta{margin-top:16mm;display:flex;gap:16px;align-items:center;color:rgba(255,255,255,.72);font-size:9.5pt;letter-spacing:.03em}
+  .hero__meta i{width:4px;height:4px;border-radius:50%;background:var(--brass-soft);display:inline-block}
+
+  /* ---- intro paragraphs ---- */
+  .intro p{color:var(--muted);font-size:11pt;margin-bottom:9px}
+  .intro p:last-child{margin-bottom:0}
+  .intro .accent{color:var(--ink);font-weight:600}
+
+  /* ---- section label with hairline ---- */
+  .sec-label{display:flex;align-items:center;gap:12px;margin-bottom:14px}
+  .sec-label .ln{height:1px;background:var(--line);flex:1}
+  .sec-label .eyebrow{white-space:nowrap}
+
+  /* ---- questions block (dark) ---- */
+  .qblock{background:linear-gradient(200deg,var(--ink),var(--ink-2));color:var(--white);border-radius:3px;padding:11mm 12mm}
+  .qblock h3{color:var(--white);font-size:15pt;margin-bottom:6px;font-weight:500}
+  .qblock .qsub{color:rgba(255,255,255,.72);font-size:10.5pt;margin-bottom:14px}
+  .qlist{list-style:none;display:grid;gap:9px}
+  .qlist li{position:relative;padding-right:20px;color:rgba(255,255,255,.92);font-size:11pt;font-family:var(--serif)}
+  .qlist li::before{content:"";position:absolute;right:0;top:.62em;width:6px;height:6px;border-radius:50%;background:var(--brass-soft)}
+  .qblock .qfoot{margin-top:14px;color:rgba(255,255,255,.72);font-size:10.5pt}
+  .qblock .qfoot strong{color:var(--white);font-weight:600}
+
+  /* ---- value cards (2x2) ---- */
+  .valgrid{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--line);border:1px solid var(--line);border-radius:3px;overflow:hidden}
+  .valcard{background:var(--surface);padding:8mm 8mm}
+  .valcard .num{font-family:var(--serif);font-size:11pt;color:var(--brass);display:block;margin-bottom:8px}
+  .valcard h4{font-size:12.5pt;margin-bottom:6px;color:var(--ink);font-weight:700}
+  .valcard p{color:var(--muted);font-size:10pt;line-height:1.55}
+
+  /* ---- pull statement ---- */
+  .pull{text-align:center;padding:12mm 10mm 0}
+  .pull p{font-family:var(--serif);font-size:16pt;line-height:1.4;color:var(--ink)}
+  .pull .brass{color:var(--brass);display:block}
+
+  /* ---- steps (side B) ---- */
+  .steps{display:grid;gap:0}
+  .step{display:grid;grid-template-columns:auto 1fr;gap:14px;padding:9px 0;border-top:1px solid var(--line)}
+  .step:first-child{border-top:none}
+  .step .sn{font-family:var(--serif);font-size:14pt;color:var(--brass);line-height:1.3;min-width:26px}
+  .step h4{font-size:12.5pt;margin-bottom:3px;font-weight:700;color:var(--ink)}
+  .step p{color:var(--muted);font-size:10.5pt}
+  .step ul{list-style:none;margin-top:6px;display:grid;gap:4px}
+  .step ul li{position:relative;padding-right:16px;color:var(--muted);font-size:10pt}
+  .step ul li::before{content:"";position:absolute;right:0;top:.6em;width:4px;height:4px;border-radius:50%;background:var(--brass)}
+
+  /* ---- service rows ---- */
+  .svc{display:grid;gap:0}
+  .svc-row{padding:8px 0;border-top:1px solid var(--line-soft)}
+  .svc-row:first-child{border-top:none}
+  .svc-row h4{font-size:11.5pt;font-weight:700;color:var(--ink);margin-bottom:2px}
+  .svc-row p{color:var(--muted);font-size:10pt}
+
+  /* ---- generic prose block ---- */
+  .prose h3{font-size:15pt;margin-bottom:8px;color:var(--ink);font-weight:500}
+  .prose p{color:var(--muted);font-size:10.5pt;margin-bottom:7px}
+  .prose p:last-child{margin-bottom:0}
+  .prose ul{list-style:none;margin:8px 0;display:grid;gap:5px}
+  .prose ul li{position:relative;padding-right:18px;color:var(--muted);font-size:10.5pt}
+  .prose ul li::before{content:"";position:absolute;right:0;top:.62em;width:5px;height:5px;border-radius:50%;background:var(--brass)}
+
+  /* ---- collaboration highlight ---- */
+  .collab{background:var(--surface);border:1px solid var(--line-soft);border-radius:3px;padding:9mm 9mm}
+
+  /* ---- contact / footer (side B) ---- */
+  .contact{background:linear-gradient(200deg,var(--ink),var(--ink-2));color:var(--white);margin-top:auto;padding:11mm 15mm}
+  .contact h3{color:var(--white);font-size:16pt;margin-bottom:8px;font-weight:500}
+  .contact .ctext{color:rgba(255,255,255,.78);font-size:10.5pt;max-width:52ch;margin-bottom:12px}
+  .contact .crow{display:flex;justify-content:space-between;align-items:flex-end;gap:18px;flex-wrap:wrap;padding-top:12px;border-top:1px solid rgba(255,255,255,.16)}
+  .contact .brandrow{margin-bottom:0}
+  .contact .brandsub{color:var(--brass-soft);font-size:9.5pt;letter-spacing:.06em;margin-top:4px}
+  .contact .cdetails{text-align:left;color:rgba(255,255,255,.82);font-size:10pt;line-height:1.7}
+  .contact .cdetails a{color:var(--brass-soft);text-decoration:none}
+  .contact .sign{margin-top:12px;font-family:var(--serif);font-size:12.5pt;color:rgba(255,255,255,.92);line-height:1.4}
+  .contact .sign .brass{color:var(--brass-soft)}
+
+  /* ---- spacing helpers ---- */
+  .stack > * + *{margin-top:11mm}
+  .mt-s{margin-top:7mm}
+
+  /* ---- screen chrome (hidden in print) ---- */
+  .hint{max-width:210mm;margin:20px auto 4px;color:#efeee9;font-family:var(--sans);font-size:12px;text-align:center;opacity:.85}
+
+  @media print{
+    body{background:none}
+    .hint{display:none}
+    .page{margin:0;box-shadow:none;width:auto;min-height:auto;height:100vh}
+    @page{size:A4;margin:0}
+    .page:first-of-type{page-break-after:always}
+  }
+  @media screen{
+    .page{box-shadow:0 10px 40px rgba(0,0,0,.28)}
+  }
+</style>
+</head>
+<body>
+
+<div class="hint">חוברת Entra · צד א׳ + צד ב׳ — להורדה כ‑PDF: הדפסה ← שמירה כ‑PDF ← A4, שוליים «ללא», הפעלת «גרפיקת רקע»</div>
+
+<!-- ============================ SIDE A ============================ -->
+<section class="page">
+
+  <!-- HERO -->
+  <div class="hero">
+    <!-- IMAGE: architectural interior / structure (subtle, behind dark scrim) -->
+    <div class="hero__img" style="background-image:url('https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=1600&q=80')"></div>
+    <div class="inner">
+      <div class="brandrow">
+        <svg viewBox="0 0 32 32" fill="none"><circle cx="16" cy="16" r="14.5" stroke="#fff" stroke-width="1.6"/><path d="M8 20.5 16 9l8 11.5" stroke="#fff" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <span class="wm">ENTRA</span>
+      </div>
+      <span class="eyebrow">ניהול מקצועי לאחר מסירת הפרויקט</span>
+      <h1 class="serif">לשמור על הבית<br>כפי שתוכנן</h1>
+      <p class="subttl">המשכיות טבעית לפרויקט האדריכלי — גורם אחד שמכיר את הבית.</p>
+      <div class="hero__meta"><span>ניהול הבית</span><i></i><span>תחזוקה מונעת</span><i></i><span>שמירה על התכנון</span></div>
+    </div>
+  </div>
+
+  <div class="pad stack" style="flex:1">
+
+    <!-- INTRO -->
+    <div class="intro">
+      <div class="sec-label"><span class="eyebrow">פרויקט אינו מסתיים במסירת המפתח</span><span class="ln"></span></div>
+      <p>לאחר חודשים ולעיתים שנים של תכנון, בחירת חומרים ועבודה מול יועצים, ספקים וקבלנים, הבית עובר משלב ההקמה לשלב החיים השוטפים.</p>
+      <p>זהו השלב שבו המערכות נכנסות לפעולה, חומרי הגמר דורשים תחזוקה נכונה, בעלי מקצוע ממשיכים להגיע לנכס ומצטבר צורך בניהול, מעקב וקבלת החלטות.</p>
+      <p>Entra מעניקה לבעלי בתים שירות ניהול אישי ומקצועי, שנועד לשמור על הבית, על המערכות שבו ועל הסטנדרט שנקבע במהלך התכנון והביצוע.</p>
+      <p class="accent">עבור האדריכל, Entra היא המשכיות טבעית של הפרויקט: גורם אחד שמכיר את הבית, מרכז את הטיפול השוטף ופועל מתוך כבוד לתכנון המקורי.</p>
+    </div>
+
+    <!-- QUESTIONS -->
+    <div class="qblock">
+      <h3 class="serif">מי מנהל את הבית לאחר המסירה?</h3>
+      <p class="qsub">גם בבית שתוכנן ובוצע ברמה גבוהה, תקופת הכניסה מעלה משימות רבות:</p>
+      <ul class="qlist">
+        <li>מי מרכז את הטיפול בתקלות?</li>
+        <li>מי עוקב אחר אחריות הספקים והקבלנים?</li>
+        <li>מי מתאם ומפקח על בעלי מקצוע?</li>
+        <li>מי מוודא שהחומרים והמערכות מתוחזקים נכון?</li>
+        <li>ומי שומר את הידע שנצבר במהלך הפרויקט?</li>
+      </ul>
+      <p class="qfoot">בהיעדר גורם מרכזי, האחריות מתפזרת בין בעלי הבית, האדריכל, הקבלן וספקים שונים. במקרים רבים, האדריכל ממשיך להיות הכתובת הטבעית של הלקוח גם לאחר סיום עבודתו — לא רק בנושאים תכנוניים, אלא גם בשאלות תפעוליות, תיאומי שירות ותקלות שוטפות. <strong>Entra נכנסת בדיוק בנקודה הזאת.</strong></p>
+    </div>
+
+    <!-- VALUE TO ARCHITECT -->
+    <div>
+      <div class="sec-label"><span class="eyebrow">הערך לאדריכל</span><span class="ln"></span></div>
+      <div class="valgrid">
+        <div class="valcard">
+          <span class="num">01</span>
+          <h4>שמירה על התכנון</h4>
+          <p>אנחנו לומדים את עקרונות הפרויקט, החומרים, המערכות ואנשי המקצוע הקשורים לבית — כדי למנוע תיקונים מאולתרים, שימוש בחומרים שאינם מתאימים ועבודות שאינן עומדות בסטנדרט שנקבע.</p>
+        </div>
+        <div class="valcard">
+          <span class="num">02</span>
+          <h4>כתובת אחת ללקוח</h4>
+          <p>בעלי הבית מקבלים גורם מרכז לניהול תחזוקה, תקלות, ספקים ובעלי מקצוע. Entra מנהלת את הטיפול השוטף ומערבת את האדריכל רק כאשר נדרשת החלטה אדריכלית או עיצובית.</p>
+        </div>
+        <div class="valcard">
+          <span class="num">03</span>
+          <h4>פחות עומס לאחר המסירה</h4>
+          <p>במקום שהאדריכל יידרש לתאם קריאות שירות, לרדוף אחר ספקים או לטפל בכל שאלה תפעולית — אנו מרכזים את המשימה ומלווים אותה עד להשלמתה.</p>
+        </div>
+        <div class="valcard">
+          <span class="num">04</span>
+          <h4>שמירה על הקשר עם הלקוח</h4>
+          <p>ניהול מסודר של הבית מפחית חיכוך ובלבול בתקופה שלאחר הכניסה. הלקוח נהנה מכתובת זמינה ומקצועית, והקשר שנבנה עם האדריכל נשמר גם לאחר סיום הפרויקט.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- PULL QUOTE -->
+    <div class="pull">
+      <p>האדריכל מוביל את החזון והתכנון.<span class="brass">Entra שומרת עליו לאורך זמן.</span></p>
+    </div>
+
+  </div>
+</section>
+
+<!-- ============================ SIDE B ============================ -->
+<section class="page">
+  <div class="pad stack" style="flex:1">
+
+    <!-- header strip -->
+    <div class="brandrow" style="margin-bottom:0;color:var(--ink)">
+      <svg viewBox="0 0 32 32" fill="none"><circle cx="16" cy="16" r="14.5" stroke="#15332D" stroke-width="1.6"/><path d="M8 20.5 16 9l8 11.5" stroke="#15332D" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      <span class="wm" style="color:var(--ink)">ENTRA</span>
+    </div>
+
+    <!-- STEPS -->
+    <div>
+      <div class="sec-label"><span class="eyebrow">כך אנחנו מקבלים את הבית לניהול</span><span class="ln"></span></div>
+      <div class="steps">
+        <div class="step"><span class="sn">1</span><div><h4>היכרות</h4><p>פגישת היכרות עם בעלי הבית להבנת הנכס, אורח החיים, הצרכים ורמת השירות הנדרשת.</p></div></div>
+        <div class="step"><span class="sn">2</span><div><h4>חפיפה מקצועית</h4><p>ככל שמתאפשר, נקיים פגישת העברה עם האדריכל, מנהל הפרויקט או הגורמים המקצועיים הרלוונטיים.</p></div></div>
+        <div class="step"><span class="sn">3</span><div><h4>מיפוי ותיעוד</h4><p>נרכז את המידע הנדרש לניהול הבית:</p>
+          <ul>
+            <li>מערכות ותשתיות מרכזיות</li>
+            <li>ספקים ובעלי מקצוע</li>
+            <li>חומרי גמר והנחיות תחזוקה</li>
+            <li>מסמכי אחריות והסכמי שירות</li>
+            <li>טיפולים ובדיקות תקופתיות</li>
+            <li>נושאים הדורשים מעורבות עתידית של האדריכל</li>
+          </ul>
+        </div></div>
+        <div class="step"><span class="sn">4</span><div><h4>תוכנית תחזוקה</h4><p>נבנה תוכנית מותאמת הכוללת טיפולים תקופתיים, משימות מניעה ומעקב אחר מערכות ואחריות.</p></div></div>
+        <div class="step"><span class="sn">5</span><div><h4>ניהול שוטף</h4><p>Entra הופכת לנקודת הקשר של בעלי הבית: מתאמת, מפקחת, מתעדת ומעדכנת עד להשלמת כל משימה.</p></div></div>
+      </div>
+    </div>
+
+    <!-- SERVICES -->
+    <div>
+      <div class="sec-label"><span class="eyebrow">שירות שמותאם לכל בית</span><span class="ln"></span></div>
+      <div class="svc">
+        <div class="svc-row"><h4>תחזוקה מונעת</h4><p>תכנון ומעקב אחר טיפולים, בדיקות ומערכות הבית.</p></div>
+        <div class="svc-row"><h4>טיפול בתקלות</h4><p>איתור בעל המקצוע המתאים, תיאום, פיקוח ומעקב עד לפתרון.</p></div>
+        <div class="svc-row"><h4>ניהול ספקים</h4><p>עבודה מול הספקים הקיימים, קבלת הצעות מחיר ותיאום בין אנשי מקצוע.</p></div>
+        <div class="svc-row"><h4>פיקוח על עבודות</h4><p>הגדרת המשימה, מעקב אחר הביצוע ותיעוד לפני ואחרי.</p></div>
+        <div class="svc-row"><h4>שקיפות ותיעוד</h4><p>שמירת היסטוריית הטיפולים ועדכון מסודר של בעלי הבית.</p></div>
+      </div>
+    </div>
+
+    <!-- COLLABORATION -->
+    <div class="collab prose">
+      <h3 class="serif">עבודה משותפת עם האדריכל</h3>
+      <p>אנו רואים באדריכל שותף מקצועי ובעל היכרות ייחודית עם הבית. Entra אינה מחליפה את האדריכל ואינה מקבלת במקומו החלטות אדריכליות או עיצוביות.</p>
+      <p>כאשר עולה צורך בשינוי מהותי, בהחלפת חומר או בהחלטה שעשויה להשפיע על התכנון המקורי — נדע לזהות זאת ולהמליץ לבעלי הבית לערב את האדריכל. ככל שניתן, נשמרת גם העבודה עם הספקים ובעלי המקצוע שכבר מכירים את הפרויקט.</p>
+    </div>
+
+    <!-- COLLABORATION MODEL -->
+    <div class="prose">
+      <div class="sec-label"><span class="eyebrow">מודל שיתוף פעולה מקצועי</span><span class="ln"></span></div>
+      <p>משרדי אדריכלות המעוניינים בכך יכולים לקחת חלק בתהליך קליטת הבית ולקבל תגמול מוסכם עבור עבודה מקצועית ממשית. המעורבות יכולה לכלול:</p>
+      <ul>
+        <li>פגישת חפיפה ומסירה</li>
+        <li>העברת מידע על חומרים, מערכות וספקים</li>
+        <li>הצגת העקרונות המרכזיים של הפרויקט</li>
+        <li>ריכוז הנחיות תחזוקה מיוחדות</li>
+        <li>זמינות מוגדרת בתקופת הקליטה</li>
+      </ul>
+      <p>היקף המעורבות והתגמול נקבעים מראש, בהתאם למאפייני הפרויקט. המודל מבוסס על שקיפות, על עבודה מקצועית בעלת ערך ועל שמירה מלאה על עצמאות שיקול הדעת של האדריכל.</p>
+    </div>
+
+    <!-- WHEN TO REFER -->
+    <div class="prose">
+      <div class="sec-label"><span class="eyebrow">מתי נכון להפנות לקוח?</span><span class="ln"></span></div>
+      <p>השירות מתאים במיוחד לבתים פרטיים ולדירות ברמה גבוהה, לנכסים בעלי מערכות מורכבות וללקוחות שאין להם זמן או רצון לנהל בעצמם תחזוקה, ספקים ובעלי מקצוע.</p>
+      <p>המועד המתאים ביותר להיכרות הוא לקראת שלבי הסיום או בסמוך למסירת הבית. היכרות מוקדמת מאפשרת לשמר את הידע שנצבר בפרויקט וליצור מעבר מסודר משלב ההקמה לשלב המגורים.</p>
+    </div>
+
+  </div>
+
+  <!-- CONTACT / CLOSE -->
+  <div class="contact">
+    <h3 class="serif">נשמח להכיר אתכם ואת הפרויקטים שלכם</h3>
+    <p class="ctext">פגישת היכרות ראשונית מאפשרת לנו להבין את אופי המשרד, סוג הפרויקטים והדרך הנכונה לשלב את Entra בתהליך המסירה ללקוח.</p>
+    <div class="crow">
+      <div>
+        <div class="brandrow">
+          <svg viewBox="0 0 32 32" fill="none"><circle cx="16" cy="16" r="14.5" stroke="#fff" stroke-width="1.6"/><path d="M8 20.5 16 9l8 11.5" stroke="#fff" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <span class="wm">ENTRA</span>
+        </div>
+        <div class="brandsub">ניהול בתים ונכסים פרטיים</div>
+      </div>
+      <div class="cdetails">
+        [שם איש הקשר]<br>
+        [מספר טלפון]<br>
+        [כתובת דוא״ל]<br>
+        <a href="https://entra.co.il">entra.co.il</a>
+      </div>
+    </div>
+    <p class="sign">הבית ממשיך לחיות.<br><span class="brass">אנחנו דואגים שהוא יישמר כפי שתוכנן.</span></p>
+  </div>
+</section>
+
+</body>
+</html>
