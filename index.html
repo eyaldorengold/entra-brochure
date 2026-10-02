@@ -27,11 +27,19 @@
   .serif{font-family:var(--serif)}
 
   /* ---- page frame ---- */
+  html{-webkit-print-color-adjust:exact;print-color-adjust:exact}
   .page{
-    width:210mm;min-height:297mm;background:var(--paper);
+    width:210mm;height:297mm;background:var(--paper);
     margin:14px auto;position:relative;overflow:hidden;
     display:flex;flex-direction:column;
   }
+  .page--cover .hero{flex:1;display:flex;flex-direction:column}
+  .page--cover .hero .inner{flex:1;display:flex;flex-direction:column;justify-content:flex-end}
+  .page--cover .brandrow{margin-bottom:auto;padding-bottom:20mm}
+  .page--close .pad{padding-top:13mm;padding-bottom:9mm}
+  .page--close .stack > * + *{margin-top:8mm}
+  .page--close .contact{padding:9mm 15mm 10mm}
+  .folio{position:absolute;bottom:8mm;left:15mm;font-size:8.5pt;color:var(--muted-2);letter-spacing:.08em}
   .pad{padding:16mm 15mm}
 
   /* ---- shared type ---- */
@@ -133,12 +141,12 @@
   /* ---- screen chrome (hidden in print) ---- */
   .hint{max-width:210mm;margin:20px auto 4px;color:#efeee9;font-family:var(--sans);font-size:12px;text-align:center;opacity:.85}
 
+  @page{size:A4;margin:0}
   @media print{
     body{background:none}
     .hint{display:none}
-    .page{margin:0;box-shadow:none;width:auto;min-height:auto;height:100vh}
-    @page{size:A4;margin:0}
-    .page:first-of-type{page-break-after:always}
+    .page{margin:0;box-shadow:none;break-after:page}
+    .page:last-of-type{break-after:auto}
   }
   @media screen{
     .page{box-shadow:0 10px 40px rgba(0,0,0,.28)}
@@ -147,10 +155,10 @@
 </head>
 <body>
 
-<div class="hint">חוברת Entra · צד א׳ + צד ב׳ — להורדה כ‑PDF: הדפסה ← שמירה כ‑PDF ← A4, שוליים «ללא», הפעלת «גרפיקת רקע»</div>
+<div class="hint">חוברת Entra · 4 עמודי A4 — להורדה כ‑PDF: הדפסה (Cmd/Ctrl+P) ← שמירה כ‑PDF</div>
 
-<!-- ============================ SIDE A ============================ -->
-<section class="page">
+<!-- ============================ PAGE 1 ============================ -->
+<section class="page page--cover">
 
   <!-- HERO -->
   <div class="hero">
@@ -168,7 +176,7 @@
     </div>
   </div>
 
-  <div class="pad stack" style="flex:1">
+  <div class="pad">
 
     <!-- INTRO -->
     <div class="intro">
@@ -178,6 +186,13 @@
       <p>Entra מעניקה לבעלי בתים שירות ניהול אישי ומקצועי, שנועד לשמור על הבית, על המערכות שבו ועל הסטנדרט שנקבע במהלך התכנון והביצוע.</p>
       <p class="accent">עבור האדריכל, Entra היא המשכיות טבעית של הפרויקט: גורם אחד שמכיר את הבית, מרכז את הטיפול השוטף ופועל מתוך כבוד לתכנון המקורי.</p>
     </div>
+  </div>
+  <span class="folio">1</span>
+</section>
+
+<!-- ============================ PAGE 2 ============================ -->
+<section class="page">
+  <div class="pad stack" style="flex:1">
 
     <!-- QUESTIONS -->
     <div class="qblock">
@@ -226,9 +241,10 @@
     </div>
 
   </div>
+  <span class="folio">2</span>
 </section>
 
-<!-- ============================ SIDE B ============================ -->
+<!-- ============================ PAGE 3 ============================ -->
 <section class="page">
   <div class="pad stack" style="flex:1">
 
@@ -270,6 +286,14 @@
         <div class="svc-row"><h4>שקיפות ותיעוד</h4><p>שמירת היסטוריית הטיפולים ועדכון מסודר של בעלי הבית.</p></div>
       </div>
     </div>
+
+  </div>
+  <span class="folio">3</span>
+</section>
+
+<!-- ============================ PAGE 4 ============================ -->
+<section class="page page--close">
+  <div class="pad stack" style="flex:1">
 
     <!-- COLLABORATION -->
     <div class="collab prose">
@@ -322,6 +346,7 @@
     </div>
     <p class="sign">הבית ממשיך לחיות.<br><span class="brass">אנחנו דואגים שהוא יישמר כפי שתוכנן.</span></p>
   </div>
+<span class="folio" style="color:rgba(255,255,255,.5)">4</span>
 </section>
 
 </body>
